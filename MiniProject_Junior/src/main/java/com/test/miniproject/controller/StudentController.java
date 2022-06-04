@@ -1,0 +1,64 @@
+package com.test.miniproject.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.test.miniproject.model.Student;
+import com.test.miniproject.service.StudentService;
+
+@RestController	
+
+public class StudentController {
+
+	
+	 @Autowired
+	 private StudentService service;
+	 
+	 @PostMapping("/addStudent")	
+	    public Student addStudent(@RequestBody Student student) {
+	        return service.saveStudent(student);
+	    }
+	 
+	 @PostMapping("/addStudents")	
+	    public List<Student> addStudents(@RequestBody List<Student> students) {
+	        return service.saveStudents(students);
+	    }
+
+	 //native sql query
+	 @GetMapping("/getAllStudents")
+	    public List<Student> getAllStudents() {
+	        return service.getAllStudents();
+	    }
+	 
+	
+	 @GetMapping("/StudentById/{id}")
+		public List<Student> getStudentById(@PathVariable Long id) {
+		    return service.getStudentById(id);
+		}
+		 
+		
+     @GetMapping("/StudentByNama/{nama}")
+		public List<Student> getStudentByNama(@PathVariable String nama) {
+		    return service.getStudentByNama(nama);
+		}	 
+	 	 
+	 
+	 @PutMapping("/update")
+	    public Student updateStudent(@RequestBody Student student) {	
+	        return service.updateStudent(student);
+	    }
+	 
+	 @DeleteMapping("/delete/{id}")
+	    public String deleteStudent(@PathVariable long id) {
+	        return service.deleteStudent(id);
+	    }
+
+}
